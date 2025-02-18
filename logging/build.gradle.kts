@@ -1,14 +1,21 @@
 import com.vanniktech.maven.publish.SonatypeHost
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    id("com.android.library")
-    kotlin("multiplatform")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidLibrary)
     id("org.jetbrains.dokka")
     id("com.vanniktech.maven.publish") version "0.28.0"
 }
 
 kotlin {
-    android {
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+        }
         publishLibraryVariants("release", "debug")
     }
     listOf(
@@ -22,16 +29,22 @@ kotlin {
         }
     }
 
-    js(IR) {
-        browser {
-        }
-    }
     jvm()
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        browser()
+        nodejs()
+    }
+    js(IR) {
+        browser()
+    }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("co.touchlab:stately-concurrency:1.2.5")
+                implementation(libs.stately.concurrency)
+                implementation(libs.kotlinx.datetime)
             }
         }
 
@@ -39,7 +52,7 @@ kotlin {
 
         val jvmMain by getting {
             dependencies {
-                implementation("org.slf4j:slf4j-api:1.7.32")
+                implementation(libs.slf4j.api)
             }
         }
 
@@ -54,16 +67,27 @@ kotlin {
         }
 
         val jsMain by getting
+        val wasmJsMain by getting
     }
 }
 
 android {
-    namespace = "org.lighthousegames.core"
+    namespace = "com.diamondedge.core"
     compileSdk = 34
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 21
         consumerProguardFiles("proguard.txt")
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    testOptions {
+        unitTests {
+            isReturnDefaultValues = true
+            isIncludeAndroidResources = true
+        }
     }
 }
 
@@ -77,10 +101,10 @@ tasks {
 }
 
 extra["artifactId"] = "logging"
-extra["artifactVersion"] = "1.5.0"
+extra["artifactVersion"] = "2.0.2"
 extra["libraryName"] = "KmLogging: Kotlin Multiplatform Logging"
 extra["libraryDescription"] = "KmLogging is a high performance, extensible and easy to use logging library for Kotlin Multiplatform development"
-extra["gitUrl"] = "https://github.com/LighthouseGames/KmLogging"
+extra["gitUrl"] = "https://github.com/DiamondEdge1/KmLogging"
 
 // defined in project's gradle.properties
 val groupId: String by project
@@ -143,6 +167,6 @@ mavenPublishing {
         }
     }
 
-    publishToMavenCentral(SonatypeHost.DEFAULT)
+    publishToMavenCentral(SonatypeHost.S01)
     signAllPublications()
 }

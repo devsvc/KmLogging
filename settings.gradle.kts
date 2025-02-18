@@ -1,13 +1,33 @@
+rootProject.name = "KmLogging"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     repositories {
-        google()
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
+        mavenCentral()
         gradlePluginPortal()
     }
-    plugins {
-        id("org.jetbrains.dokka") version "1.9.20"
-        kotlin("multiplatform") version "1.9.24"
+}
+
+dependencyResolutionManagement {
+    repositories {
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
+        mavenCentral()
+        mavenLocal()
     }
 }
 
 include(":logging")
-include(":sample:shared", ":sample:androidApp", ":sample:webApp", ":sample:jvmApp")
+include(":sampleApp:composeApp")

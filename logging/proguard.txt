@@ -1,2 +1,2 @@
--keepnames class org.lighthousegames.logging.KmLog
--keepnames class org.lighthousegames.logging.KmLogKt
+-keepnames class com.diamondedge.logging.KmLog
+-keepnames class com.diamondedge.logging.KmLogKt

@@ -1,7 +1,7 @@
 # Kotlin Multiplatform Logging  <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Kotlin_Icon.svg" width="30">  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg" width="30">  <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Apple_iOS_logo.svg" width="30">  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" width="30">  <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/OpenJDK_logo.svg" width="80">
 
-[![ver](https://img.shields.io/maven-central/v/org.lighthousegames/logging)](https://repo1.maven.org/maven2/org/lighthousegames/logging/)
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.8.22-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![ver](https://img.shields.io/maven-central/v/com.diamondedge/logging)](https://repo1.maven.org/maven2/com/diamondedge/logging/)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
 ![kmm](https://img.shields.io/badge/Multiplatform-Android%20iOS%20JS%20JVM-blue)
 [![License](https://img.shields.io/badge/License-Apache--2.0-blue)](http://www.apache.org/licenses/LICENSE-2.0)
 
@@ -9,43 +9,55 @@ Kotlin multiplatform logging library targeting Android, iOS, JVM and JS.
 
 ## Features
 
-* Uses the native logging facility on each platform: Log on Android, os_log on iOS, SLF4J on JVM and console on JavaScript.
+* Uses the native logging facility on each platform: Log on Android, os_log on iOS, SLF4J on JVM and
+  console on WasmJs and JavaScript.
 * High performance. Very little overhead when logging is disabled. When disabled, only one boolean
   is evaluated and no function calls. Building the message string and running the code to calculate
   it is not executed.
 * No configuration necessary.
 * Can add additional loggers such as Crashlytics or replace/extend the builtin PlatformLogger with
   something else
-* Can provide custom/configurable log level control on builtin PlatformLogger such as changing the log level from Remote Config
+* Can provide custom/configurable log level control on builtin PlatformLogger such as changing the
+  log level from Remote Config
 * Each logger can log at a different level.
-* All platforms can use the same set of loggers by configuring in common code or can use different ones on each platform by configuring in platform specific code.
+* All platforms can use the same set of loggers by configuring in common code or can use different
+  ones on each platform by configuring in platform specific code.
 * It is thread-safe
+
+## Migration from version 1.x
+
+Version 2.0 changed the package from `org.lighthousegames.logging` to `com.diamondedge.logging`
+To do the migration simply change the dependency to
+`implementation("com.diamondedge:logging:$logging_version")`
+and replace all occurrences of `org.lighthousegames.logging` in your code base with
+`com.diamondedge.logging`.
 
 ## Setup
 
 The library is available from the Maven Central repository with the current version
-of ![ver](https://img.shields.io/maven-central/v/org.lighthousegames/logging)
-You should use at least version `1.8.22` of the kotlin multiplatform plugin (Older version of Kotlin are supported in older versions of the library). Place the following in
-the commonMain section.
+of ![ver](https://img.shields.io/maven-central/v/com.diamondedge/logging)
+You should use version `2.0.21` or later of the kotlin multiplatform plugin (Older version of Kotlin
+are supported in older versions of the library). Place the following in the commonMain section.
 
 build.gradle.kts
 
 ```kotlin
 sourceSets {
-	val commonMain by getting {
-		dependencies {
-			api("org.lighthousegames:logging:$logging_version")
-		}
-	}
+    val commonMain by getting {
+        dependencies {
+            api("com.diamondedge:logging:$logging_version")
+        }
+    }
 }
 ```
+
 build.gradle
 
 ```gradle
 sourceSets {
     commonMain {
         dependencies {
-            api "org.lighthousegames:logging:$logging_version"
+            api "com.diamondedge:logging:$logging_version"
         }
     }
 }
@@ -53,18 +65,21 @@ sourceSets {
 
 ## Setup for non-multiplatform
 
-So, you want the best and easiest to use kotlin logging library but are not yet ready for multiplatform development then just include on the following in your `dependencies` section:
+So, you want the best and easiest to use kotlin logging library but are not yet ready for
+multiplatform development then just include on the following in your `dependencies` section:
 
 ```gradle
-    implementation("org.lighthousegames:logging-android:$logging_version")
-    implementation("org.lighthousegames:logging-jvm:$logging_version")
-    implementation("org.lighthousegames:logging-js:$logging_version")
+    implementation("com.diamondedge:logging-android:$logging_version")
+    implementation("com.diamondedge:logging-jvm:$logging_version")
+    implementation("com.diamondedge:logging-js:$logging_version")
 ```
 
 ## Usage
 
-Create an instance of logging class by using the convenience function `logging()`. 
-On Android, iOS and JVM the class from where `logging()` was called will be used as the tag in the logs. For JS or when a specific tag is desired it can be supplied i.e `val log = logging("mytag")` or `val log = KmLog("mytag")`
+Create an instance of logging class by using the convenience function `logging()`.
+On Android, iOS and JVM the class from where `logging()` was called will be used as the tag in the
+logs. For JS or when a specific tag is desired it can be supplied i.e `val log = logging("mytag")`
+or `val log = KmLog("mytag")`
 
 ```kotlin
 class MyClass {
@@ -149,6 +164,7 @@ KmLogging.setLoggers(PlatformLogger(FixedLogLevel(BuildConfig.DEBUG)))
 
 | KmLogging version | Kotlin version |
 |-------------------|----------------|
+| 2.0.2             | 2.0.21         |
 | 1.5.0             | 1.9.24         |
 | 1.4.2             | 1.8.22         |
 | 1.3.0             | 1.8.10         |
@@ -174,7 +190,8 @@ KmLogging.setLoggers(PlatformLogger(FixedLogLevel(BuildConfig.DEBUG)))
 
 If logging is only desired at certain levels that can be setup. For example, if only the more
 important logs should be sent to Crashlytics to give some context to crashes then only log info
-level and above. That can be easily done by by defining and adding in a logger to do that. The sample android app implement this.
+level and above. That can be easily done by by defining and adding in a logger to do that. The
+sample android app implement this.
 
 ```kotlin
 class CrashlyticsLogger : Logger {
@@ -211,23 +228,29 @@ class CrashlyticsLogger : Logger {
 KmLogging.addLogger(CrashlyticsLogger())
 ``` 
 
-## Usage in iOS and Swift 
-By default the kotlin multiplatform toolchain will not export all KmLogging classes and those that are will be prefaced with the stringLogging. 
-If you want to use classes from Swift code you will need to direct the plugin to export the logging library in your `build.gradle.kts`:
+## Usage in iOS and Swift
+
+By default the kotlin multiplatform toolchain will not export all KmLogging classes and those that
+are will be prefaced with the stringLogging.
+If you want to use classes from Swift code you will need to direct the plugin to export the logging
+library in your `build.gradle.kts`:
 
 ```kotlin
     ios {
-        binaries {
-            framework {
-                baseName = "my-shared-module-name"
-                export("org.lighthousegames:logging:$logging_version")
-            }
+    binaries {
+        framework {
+            baseName = "my-shared-module-name"
+            export("com.diamondedge:logging:$logging_version")
         }
     }
+}
 ```
-Note: logging must also be included as an api dependency. See https://kotlinlang.org/docs/reference/mpp-build-native-binaries.html
 
-The code to figure out what class KmLog was instantiated from does not work from within Swift, so you will always want to pass in the class name:
+Note: logging must also be included as an api dependency.
+See https://kotlinlang.org/docs/reference/mpp-build-native-binaries.html
+
+The code to figure out what class KmLog was instantiated from does not work from within Swift, so
+you will always want to pass in the class name:
 
 ```swift
 class MyClass {
@@ -250,19 +273,20 @@ an application both use KmLogging then the library will have its logging turned 
 enable or disable a library's logging independently of the application, the library needs to use a
 wrapper so logging can be turned on/off using a variable.
 
-Example usage with code implemented in [ChartsLogging.kt](https://github.com/ellsworthrw/DiamondCharts/blob/main/charts/src/main/java/com/diamondedge/charts/ChartsLogging.kt):
+Example usage with code implemented
+in [ChartsLogging.kt](https://github.com/ellsworthrw/DiamondCharts/blob/main/charts/src/main/java/com/diamondedge/charts/ChartsLogging.kt):
 
 ```kotlin
  object ChartsLogging {
-     var enabled = true
- }
+    var enabled = true
+}
 
- fun moduleLogging(tag: String? = null): KmModuleLog {
-     // string passed into createTag should be the name of the class that this function is implemented in
-     // if it is a top level function then the class name is the file name with Kt appended
-     val t = tag ?: KmLogging.createTag("ChartsLoggingKt").first
-     return KmModuleLog(logging(t), ChartsLogging::enabled)
- }
+fun moduleLogging(tag: String? = null): KmModuleLog {
+    // string passed into createTag should be the name of the class that this function is implemented in
+    // if it is a top level function then the class name is the file name with Kt appended
+    val t = tag ?: KmLogging.createTag("ChartsLoggingKt").first
+    return KmModuleLog(logging(t), ChartsLogging::enabled)
+}
 ```
 
 The library code would then use this new function to do its logging:
@@ -275,8 +299,8 @@ The library code would then use this new function to do its logging:
 
 Once you have adopted KmLogging, what do you do with all your existing Android code that is using
 the Log class? The first quick and easy step is to switch all your code to using
-org.lighthousegames.logging.Log class which mimics the Android Log class but sends all output
+com.diamondedge.logging.Log class which mimics the Android Log class but sends all output
 through KmLogging so you can turn it on and off at the same time as with all other KmLog usages and
 have all its benefits. To do this simply replace all occurrences of `import android.util.Log` in
-your code base with `import org.lighthousegames.logging.Log`
+your code base with `import com.diamondedge.logging.Log`
 

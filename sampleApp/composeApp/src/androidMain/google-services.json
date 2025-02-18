@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "404711485520",
+    "project_id": "lighthouse-games-1",
+    "storage_bucket": "lighthouse-games-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404711485520:android:1a798574f6bfa362e1a155",
+        "android_client_info": {
+          "package_name": "org.lighthousegames.sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "404711485520-lkhieg6nnmd1mema0ai6us73avdnaidp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrEamfs57SbyLtAeUsVEnrCzGmqqb1X_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "404711485520-lkhieg6nnmd1mema0ai6us73avdnaidp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
