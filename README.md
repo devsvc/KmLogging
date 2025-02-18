@@ -2,10 +2,10 @@
 
 [![ver](https://img.shields.io/maven-central/v/com.diamondedge/logging)](https://repo1.maven.org/maven2/com/diamondedge/logging/)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
-![kmm](https://img.shields.io/badge/Multiplatform-Android%20iOS%20JS%20JVM-blue)
+![kmm](https://img.shields.io/badge/Multiplatform-Android%20iOS%20WasmJS%20JS%20JVM-blue)
 [![License](https://img.shields.io/badge/License-Apache--2.0-blue)](http://www.apache.org/licenses/LICENSE-2.0)
 
-Kotlin multiplatform logging library targeting Android, iOS, JVM and JS.
+Kotlin multiplatform logging library targeting Android, iOS, JVM, WasmJS and JS.
 
 ## Features
 
@@ -178,7 +178,7 @@ KmLogging.setLoggers(PlatformLogger(FixedLogLevel(BuildConfig.DEBUG)))
 * When calling `KmLogging.setLoggers()` the existing loggers are removed and the supplied ones are
   added in.
 * If the existing ones should remain then `KmLogging.addLoggers()` should be used.
-* `PlatformLogger` uses Log on Android, os_log on iOS, SLF4j on JVM and console on JS.
+* `PlatformLogger` uses Log on Android, os_log on iOS, SLF4j on JVM and console on WasmJS and JS.
 * If a custom logger is created that changes the log level dynamically such as from a Remote Config
   change then `KmLogging.setupLoggingFlags()` should be called when the logger's log levels were
   changed to calculate which log levels are enabled. KmLogging maintains variables for each log
