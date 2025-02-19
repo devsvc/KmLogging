@@ -20,7 +20,7 @@ lifecycleRuntimeKtx = "2.4.0"
 logback = "1.5.16"
 slf4jApi = "2.0.16"
 statelyConcurrency = "2.1.0"
-logging = "2.0.1"
+logging = "2.0.3"
 
 [libraries]
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
