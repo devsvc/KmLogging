@@ -186,6 +186,31 @@ KmLogging.setLoggers(PlatformLogger(FixedLogLevel(BuildConfig.DEBUG)))
   reason so only a single boolean check will be done at runtime to minimize the overhead when
   running in production. The android sample app demonstrates this.
 
+## Use in unit testing
+
+* If you want log messages to show up while unit testing then in your test class you can set up a
+  logger that prints to the console using something like:
+
+```kotlin
+    @BeforeTest
+    fun setup() {
+        KmLogging.setLoggers(PrintLogger(FixedLogLevel(true)))
+    }
+```
+
+* On Android unit tests will complain about not supplying default values or not being mocked. You
+  will want to include the following:
+
+```kotlin
+android {
+    testOptions {
+        unitTests {
+            isReturnDefaultValues = true
+        }
+    }
+}
+```
+
 ## Logging to another system such as Crashlytics
 
 If logging is only desired at certain levels that can be setup. For example, if only the more

@@ -7,5 +7,6 @@
 build
 /captures
 node_modules
+kotlin-js-store
 .externalNativeBuild
 notes.txt
