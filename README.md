@@ -4,6 +4,7 @@
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
 ![kmm](https://img.shields.io/badge/Multiplatform-Android%20iOS%20WasmJS%20JS%20JVM-blue)
 [![License](https://img.shields.io/badge/License-Apache--2.0-blue)](http://www.apache.org/licenses/LICENSE-2.0)
+[![libs.tech recommends](https://libs.tech/project/332284926/badge.svg)](https://libs.tech/project/332284926/kmlogging)
 
 Kotlin multiplatform logging library targeting Android, iOS, JVM, WasmJS and JS.
 
