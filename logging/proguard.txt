@@ -1,2 +1,2 @@
--keepnames class com.diamondedge.logging.KmLog
--keepnames class com.diamondedge.logging.KmLogKt
+-keepnames class io.github.devsvc.logging.KmLog
+-keepnames class io.github.devsvc.logging.KmLogKt

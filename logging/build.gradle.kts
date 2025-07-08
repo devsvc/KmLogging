@@ -72,7 +72,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.diamondedge.core"
+    namespace = "io.github.devsvc.core"
     compileSdk = 34
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
@@ -102,9 +102,9 @@ tasks {
 
 extra["artifactId"] = "logging"
 extra["artifactVersion"] = "2.0.3"
-extra["libraryName"] = "KmLogging: Kotlin Multiplatform Logging"
+extra["libraryName"] = "KmLogging: Kotlin Multiplatform Logging(Normal functions fork version)"
 extra["libraryDescription"] = "KmLogging is a high performance, extensible and easy to use logging library for Kotlin Multiplatform development"
-extra["gitUrl"] = "https://github.com/DiamondEdge1/KmLogging"
+extra["gitUrl"] = "https://github.com/devsvc/KmLogging"
 
 // defined in project's gradle.properties
 val groupId: String by project
@@ -167,6 +167,7 @@ mavenPublishing {
         }
     }
 
-    publishToMavenCentral(SonatypeHost.S01)
+//    publishToMavenCentral(SonatypeHost.S01)
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease=true)
     signAllPublications()
 }
