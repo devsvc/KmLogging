@@ -72,7 +72,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.devsvc.core"
+    namespace = "com.diamondedge.core"
     compileSdk = 34
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
@@ -101,9 +101,9 @@ tasks {
 }
 
 extra["artifactId"] = "logging"
-extra["artifactVersion"] = "2.0.3"
+extra["artifactVersion"] = "2.0.4"
 extra["libraryName"] = "KmLogging: Kotlin Multiplatform Logging(Normal functions fork version)"
-extra["libraryDescription"] = "KmLogging is a high performance, extensible and easy to use logging library for Kotlin Multiplatform development"
+extra["libraryDescription"] = "KmLogging is a high performance, extensible and easy to use logging library for Kotlin Multiplatform development. This fork change raw api methods from inline to normal."
 extra["gitUrl"] = "https://github.com/devsvc/KmLogging"
 
 // defined in project's gradle.properties
